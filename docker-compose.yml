@@ -1,29 +1,40 @@
-version: '3'
+version: "3.7"
 services:
-
-  #PHP Service
   app:
     build:
-      context: .
+      args:
+        user: ksn38
+        uid: 1001
+      context: ./
       dockerfile: Dockerfile
-    image: ms3/php
-    container_name: app
+    image: ms3
+    container_name: ms3-app
     restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
+    working_dir: /var/www/
     volumes:
       - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - app-network
+      - ms3-network
 
-  #Nginx Service
-  webserver:
+  db:
+    image: mysql:5.7
+    container_name: ms3-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - ms3-network
+
+  nginx:
     image: nginx:alpine
-    container_name: webserver
+    container_name: ms3-nginx
     restart: unless-stopped
     tty: true
     ports:
@@ -31,34 +42,10 @@ services:
       - "443:443"
     volumes:
       - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - app-network
+      - ms3-network
 
-  #MySQL Service
-  db:
-    image: mysql:5.7.22
-    container_name: db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3303:3303"
-    environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: your_mysql_root_password
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - dbdata:/var/lib/mysql/
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - app-network
-
-#Docker Networks
 networks:
-  app-network:
+  ms3-network:
     driver: bridge
-#Volumes
-volumes:
-  dbdata:
-    driver: local
