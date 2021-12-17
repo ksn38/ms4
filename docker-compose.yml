@@ -4,21 +4,21 @@ services:
     build:
       args:
         user: ksn38
-        uid: 1001
+        uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: ms3
-    container_name: ms3-app
+    image: ms4
+    container_name: ms4-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
-      - ms3-network
+      - ms4-network
 
   db:
     image: mysql:5.7
-    container_name: ms3-db
+    container_name: ms4-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -28,24 +28,25 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+      - ./docker-compose/mysql:/var/lib/mysql
     networks:
-      - ms3-network
+      - ms4-network
+    ports:
+      - "3306:3306"
 
   nginx:
     image: nginx:alpine
-    container_name: ms3-nginx
+    container_name: ms4-nginx
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
-      - "443:443"
+      - "8000:80"
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - ms3-network
+      - ms4-network
 
 networks:
-  ms3-network:
+  ms4-network:
     driver: bridge
