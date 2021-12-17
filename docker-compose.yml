@@ -17,22 +17,19 @@ services:
       - ms4-network
 
   db:
-    image: mysql:5.7
+    image: postgres:12
     container_name: ms4-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./docker-compose/mysql:/var/lib/mysql
+      - ./docker-compose/psql:/var/lib/postgresql/data
     networks:
       - ms4-network
     ports:
-      - "3306:3306"
+      - "5432:5432"
 
   nginx:
     image: nginx:alpine
