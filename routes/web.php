@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::get('/', [PostController::class, 'index']);
 Route::get('/about', function() {
     return view('about');
 });
+
+Route::get('/hh', [LangController::class, 'hh']);
+
