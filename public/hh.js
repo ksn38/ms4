@@ -121,12 +121,12 @@ let graph = (win) => {
   let cpp = [];
 
   for (let i = 0; i < receivedData.length; i += 5) {
-    date.push(receivedData[i]['fields']['date_added']);
-    cpp.push(receivedData[i]['fields']['res_vac']);
-    java.push(receivedData[i + 1]['fields']['res_vac']);
-    js.push(receivedData[i + 2]['fields']['res_vac']);
-    php.push(receivedData[i + 3]['fields']['res_vac']);
-    py.push(receivedData[i + 4]['fields']['res_vac']);
+    date.push(receivedData[i]['date_added']);
+    cpp.push(parseFloat(receivedData[i]['res_vac']));
+    java.push(parseFloat(receivedData[i + 1]['res_vac']));
+    js.push(parseFloat(receivedData[i + 2]['res_vac']));
+    php.push(parseFloat(receivedData[i + 3]['res_vac']));
+    py.push(parseFloat(receivedData[i + 4]['res_vac']));
   };
 
   date = date.slice(win);
@@ -231,11 +231,11 @@ if (cavasAvg.width > window.innerWidth) {
 }
 
 let graphAvg = (win) => {
-  let dateAvg = Object.keys(receivedDataAvg).map((key) => receivedDataAvg[key]['fields']['date_added']);
-  let avgVn = Object.keys(receivedDataAvg).map((key) => parseFloat(receivedDataAvg[key]['fields']['avg_vn']));
-  let avgRv = Object.keys(receivedDataAvg).map((key) => receivedDataAvg[key]['fields']['avg_rv']);
+  let dateAvg = Object.keys(receivedDataAvg).map((key) => receivedDataAvg[key]['date_added']);
+  let avgVn = Object.keys(receivedDataAvg).map((key) => parseFloat(receivedDataAvg[key]['avg_vn']));
+  let avgRv = Object.keys(receivedDataAvg).map((key) => parseFloat(receivedDataAvg[key]['avg_rv']));
   let rCor = [];
-  
+
   for (let i = 0; i < avgVn.length - win; i++) {
     rCor.push(cor(avgVn.slice(i, i + win), avgRv.slice(i, i + win)));
   };
