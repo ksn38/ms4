@@ -115,7 +115,6 @@
   <script type="text/javascript">
     var receivedData  = {!! json_encode($graphs) !!};
     var receivedDataAvg  = {!! json_encode($graphsAvg) !!};
-    console.log(receivedData[0]['date_added']);
   </script>
 <script src="{{asset('hh.js')}}"></script>
 @endsection

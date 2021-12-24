@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\CurrencyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,6 @@ Route::get('/about', function() {
 });
 
 Route::get('/hh', [LangController::class, 'hh']);
+
+Route::get('/currencies', [CurrencyController::class, 'currencies']);
 

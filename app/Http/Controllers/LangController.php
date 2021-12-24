@@ -36,6 +36,6 @@ class LangController extends Controller
         $graphsAvg = DB::select("select distinct max(id) over(partition by date_added) as id, date_added, avg(val_noexp) over(partition by date_added) 
         as avg_vn, avg(res_vac) over(partition by date_added) as avg_rv from langs order by date_added");
 
-        return view('langs.hh', compact('langs', 'langs2020', 'langs2021', 'graphs', 'graphsAvg'));
+        return view('hh', compact('langs', 'langs2020', 'langs2021', 'graphs', 'graphsAvg'));
     }
 }
