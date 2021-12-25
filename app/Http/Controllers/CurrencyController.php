@@ -43,13 +43,18 @@ class CurrencyController extends Controller
             $now = parser(0, $now=True);
             $delta = parser($delta_val, $now=False);
             $order_dif = [];
+            $keys = array_keys($now);
+            $setCur = new \Ds\Set('BYN', 'HUF', 'KGS', 'MDL', 'TJS', 'UZS', 'HKD', 'AZN', 'AMD', 'TMT', 'CZK', 'DKK', 'BGN', 'RON');
             
-            for key in now[0].keys():
-                if key not in {'BYN', 'HUF', 'KGS', 'MDL', 'TJS', 'UZS', 'HKD', 'AZN', 'AMD', 'TMT', 'CZK', 'DKK', 'BGN', 'RON'}:
+            
+            foreach ($keys as $key) {
+              
+                if key not in {}:
                     try:
                         order_dif[key] = round((now[0][key] / delta[0][key] - 1) * 100, 2)
                     except KeyError:
                         pass
+            };
             
             order_dif_plus = OrderedDict(sorted(order_dif.items(), key=lambda item: item[1], reverse=True))
 
@@ -60,6 +65,8 @@ class CurrencyController extends Controller
         $date_delta1 = '0';
         $date_delta2 = '0';
         $date_delta3 = '0';
+        
+        $test = ['name' => 'bob', 'value'=>'1'];
 
         $dif_plus = [['name' => '0', 'value'=>'1'], ['name' => '2', 'value'=>'3']];
         $dif_plus1 = [['name' => 'bob', 'value'=>'1'], ['name' => 'max', 'value'=>'3']];

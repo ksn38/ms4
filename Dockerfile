@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     nano \
     iputils-ping \
-    libpq-dev
+    libpq-dev \
+    && pecl install ds && docker-php-ext-enable ds
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
