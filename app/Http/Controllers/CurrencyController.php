@@ -4,28 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use DateTime;
+use DateInterval;
 
 class CurrencyController extends Controller
 {
-    public function currencies () {
+    public function currencies (Request $request) {
         function parser ($dif, $now) {
             $url = 'http://www.cbr.ru/scripts/XML_daily.asp';
             $dateNow = new DateTime();
             $dateAgo = $dateNow->sub(new DateInterval('P' . $dif . 'D'))->format("d/m/Y");
             $currency = explode('>', mb_convert_encoding(Http::get($url . '?date_req=' . $dateAgo)->body(), 'UTF-8', 'cp1251'));
             $dict_curr = [];
-            $date_delta = currency[1];
+            $date_delta = $currency[1];
 
-            if ($now != True) {
-                $date_delta = preg_replace('[^0-9.]', '', $date_delta);
-            };
+            $date_delta = preg_replace('/[^0-9.]/', '', $date_delta);
 
             for ($i = 0; $i < count($currency); $i++) {
                 if ($currency[$i] == '<CharCode') {
                     $key = explode('<', $currency[$i + 1])[0];
                     $dict_curr[strval($key)] = floatval(explode('<', str_replace(',', '.', $currency[$i + 7]))[0]) / floatval(explode('<', $currency[$i + 3])[0]);
-                };
-            };
+                }
+            }
             return [$dict_curr, $date_delta];
         }
         $delta = 7;
@@ -33,45 +33,45 @@ class CurrencyController extends Controller
         $delta2 = 1460;
         $delta3 = 4018;
 
-        /*if(request.GET.get('mybtn')):
-            delta = (int(request.GET.get('mytextbox')))
-            delta1 = (int(request.GET.get('mytextbox1')))
-            delta2 = (int(request.GET.get('mytextbox2')))
-            delta3 = (int(request.GET.get('mytextbox3')))*/
+        $query_array = $request->query();
 
-        function ordered_array($delta_val) {
-            $now = parser(0, $now=True);
-            $delta = parser($delta_val, $now=False);
-            $order_dif = [];
-            $keys = array_keys($now);
-            $setCur = new \Ds\Set('BYN', 'HUF', 'KGS', 'MDL', 'TJS', 'UZS', 'HKD', 'AZN', 'AMD', 'TMT', 'CZK', 'DKK', 'BGN', 'RON');
-            
-            
-            foreach ($keys as $key) {
-              
-                if key not in {}:
-                    try:
-                        order_dif[key] = round((now[0][key] / delta[0][key] - 1) * 100, 2)
-                    except KeyError:
-                        pass
-            };
-            
-            order_dif_plus = OrderedDict(sorted(order_dif.items(), key=lambda item: item[1], reverse=True))
-
-            return order_dif_plus.items(), delta[1]
+        if (array_key_exists('mybtn', $query_array)) {
+            $delta = $query_array['mytextbox'];
+            $delta1 = $query_array['mytextbox1'];
+            $delta2 = $query_array['mytextbox2'];
+            $delta3 = $query_array['mytextbox3'];
         }
 
-        $date_delta = '0';
-        $date_delta1 = '0';
-        $date_delta2 = '0';
-        $date_delta3 = '0';
-        
-        $test = ['name' => 'bob', 'value'=>'1'];
+        //print_r($query_array['mybtn']);
 
-        $dif_plus = [['name' => '0', 'value'=>'1'], ['name' => '2', 'value'=>'3']];
-        $dif_plus1 = [['name' => 'bob', 'value'=>'1'], ['name' => 'max', 'value'=>'3']];
-        $dif_plus2 = [['name' => 'bob', 'value'=>'1'], ['name' => 'max', 'value'=>'3']];
-        $dif_plus3 = [['name' => 'bob', 'value'=>'1'], ['name' => 'max', 'value'=>'3']];
+        function orderedArray($deltaVal) {
+            $nowArr = parser(0, $now=True);
+            $deltaArr = parser($deltaVal, $now=False);
+            $orderDif = [];
+            $keys = array_keys($nowArr[0]);
+            $setCur = new \Ds\Set(['BYN', 'HUF', 'KGS', 'MDL', 'TJS', 'UZS', 'HKD', 'AZN', 'AMD', 'TMT', 'CZK', 'DKK', 'BGN', 'RON']);
+            
+            foreach ($keys as $key) {
+                if (!$setCur->contains($key)) {
+                    if (array_key_exists($key, $deltaArr[0])) {
+                        $orderDif[strval($key)] = round(($nowArr[0][strval($key)] / $deltaArr[0][strval($key)] - 1) * 100, 2);
+                    } 
+                }
+            }
+
+            arsort($orderDif);
+            return [$orderDif, $deltaArr[1]];
+        }
+
+        $date_delta = orderedArray($delta)[1];
+        $date_delta1 = orderedArray($delta1)[1];
+        $date_delta2 = orderedArray($delta2)[1];
+        $date_delta3 = orderedArray($delta3)[1];
+
+        $dif_plus = orderedArray($delta)[0];
+        $dif_plus1 = orderedArray($delta1)[0];
+        $dif_plus2 = orderedArray($delta2)[0];
+        $dif_plus3 = orderedArray($delta3)[0];
 
         return view('currencies', compact('date_delta', 'date_delta1', 'date_delta2', 'date_delta3', 'dif_plus', 'dif_plus1', 'dif_plus2', 'dif_plus3', 'delta', 'delta1', 'delta2', 'delta3'));
     }

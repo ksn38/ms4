@@ -4,27 +4,27 @@
 <div class='d-flex justify-content-around m-2 flex-wrap align-items-start'>
   <div class='flex-column justify-content-center mt-2'>
     <small class='d-flex justify-content-around mt-2 text-secondary'>Changes currencies relative to the ruble for periods:</small> 
-    <span class="d-flex flex-nowrap mb-2">    
-      <form class='d-flex justify-content-center' action="#" method="get" class='ml-auto'>        
+    <span class="d-flex flex-nowrap">    
+      <form class='d-flex mx-auto' method="get">        
         <input class='mr-1' type="number" name="mytextbox3" size='3' min='1' max='11000' id='mytextbox3'>
         <input class='mr-1' type="number" name="mytextbox2" size='3' min='1' max='11000' id='mytextbox2'>
         <input class='mr-1' type="number" name="mytextbox1" size='3' min='1' max='11000' id='mytextbox1'>
         <input class='mr-1' type="number" name="mytextbox" size='3' min='1' max='11000' id='mytextbox'>
         <input type="submit" value="days ago" name="mybtn" id='mybtn'>
-      </form>
-      <input class='ml-1' type="checkbox" id='checkbox-change'>  
+        <input class='ml-1' type="checkbox" id='checkbox-change'>
+      </form>  
     </span>
     <div class='d-flex flex-nowrap'>
       <div  class='flex-column'>
         <div>({{ $date_delta3 }})</div>
         <table class='table-sm table-bordered table-dark' style='height: 0px'>
-          @foreach ($dif_plus3 as $nameValue)
+          @foreach ($dif_plus3 as $key => $value)
             <tr>
               <td class='currency-plus text-secondary'>
-                {{ $nameValue['name'] }}
+                {{ $key }}
               </td>
-              <td class='value-plus text-dark'>
-                {{ $nameValue['value'] }}
+              <td class='value-plus3 text-dark'>
+                {{ $value }}
               </td>
             </tr>
           @endforeach
@@ -33,13 +33,13 @@
       <div  class='flex-column'>
         <div>({{ $date_delta2 }})</div>
         <table class='table-sm table-bordered table-dark' style='height: 0px'>
-          @foreach ($dif_plus2 as $nameValue)
+          @foreach ($dif_plus2 as $key => $value)
             <tr>
               <td class='currency-plus text-secondary'>
-                {{ $nameValue['name'] }}
+                {{ $key }}
               </td>
-              <td class='value-plus text-dark'>
-                {{ $nameValue['value'] }}
+              <td class='value-plus2 text-dark'>
+                {{ $value }}
               </td>
             </tr>
           @endforeach
@@ -48,13 +48,13 @@
       <div  class='flex-column'>
         <div>({{ $date_delta1 }})</div>
         <table class='table-sm table-bordered table-dark' style='height: 0px'>
-          @foreach ($dif_plus2 as $nameValue)
+          @foreach ($dif_plus2 as $key => $value)
             <tr>
               <td class='currency-plus text-secondary'>
-                {{ $nameValue['name'] }}
+                {{ $key }}
               </td>
-              <td class='value-plus text-dark'>
-                {{ $nameValue['value'] }}
+              <td class='value-plus1 text-dark'>
+                {{ $value }}
               </td>
             </tr>
           @endforeach
@@ -66,13 +66,13 @@
         </div>
         <div class='flex-column'>
           <table class='table-sm table-bordered table-dark' style='height: 0px'>
-            @foreach ($dif_plus as $nameValue)
+            @foreach ($dif_plus as $key => $value)
               <tr>
                 <td class='currency-plus text-secondary'>
-                  {{ $nameValue['name'] }}
+                  {{ $key }}
                 </td>
                 <td class='value-plus text-dark'>
-                  {{ $nameValue['value'] }}
+                  {{ $value }}
                 </td>
               </tr>
             @endforeach
@@ -81,7 +81,6 @@
       </div>
     </div>
   </div>
-</div>
   
   <table class='table-sm table-dark table-bordered' id='moex'>
     <caption style='caption-side: top'>

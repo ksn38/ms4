@@ -169,9 +169,9 @@ button.onclick = async function () {
   };
 };
 
-/*window.onload = function(){
+window.onload = function(){
   button.click();
-}*/
+}
 
 //coloring table of currencies
 let currencyPlus = document.querySelectorAll('.currency-plus');
