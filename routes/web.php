@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\TickerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::resource('/posts', PostController::class);
     return view('about');
 });*/
 
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [TickerController::class, 'index']);
 
 Route::get('/about', function() {
     return view('about');

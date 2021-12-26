@@ -24,7 +24,7 @@ let levelVix = document.getElementById('level-vix');
 let correlationInput = document.getElementById('correlation-input');
 let dateOffset = [];
 let dateOffsetOutput = document.getElementById('dateOffsetOutput');
-dateOffsetOutput.innerHTML = received_data[lengthRD - 1]['fields']['date_added'];
+dateOffsetOutput.innerHTML = received_data[lengthRD - 1]['date_added'];
 let periodInput = document.getElementById("period-input");
 let data1 = document.getElementById('data1');
 let data2 = document.getElementById('data2');
@@ -44,7 +44,7 @@ let winAnimation = 5;
 
 //coloring table
 for (let i = lengthRD - 1; i >= 0; i--) {
-    dateOffset.push(received_data[i]['fields']['date_added']);
+    dateOffset.push(received_data[i]['date_added']);
     //console.log(i);
   }
 
@@ -245,11 +245,11 @@ let createMainChart = function (offset, level, win, item) {
   }
   
   for (i; i < lengthRD - offset; i++) {
-    date.push(received_data[i]['fields']['date_added']);
-    ticker1.push(received_data[i]['fields'][data1.value]);
-    ticker2.push(received_data[i]['fields'][data2.value]);
-    if (received_data[i]['fields']['vix'] > level) {
-      vix2.push(received_data[i]['fields']['vix'])
+    date.push(received_data[i]['date_added']);
+    ticker1.push(received_data[i][data1.value]);
+    ticker2.push(received_data[i][data2.value]);
+    if (received_data[i]['vix'] > level) {
+      vix2.push(received_data[i]['vix'])
     } else {vix2.push(0)};
   }
   
@@ -273,16 +273,16 @@ let createCharts4 = function (offset, level, win, item) {
   }
   
   for (i; i < lengthRD - offset; i++) {
-    date.push(received_data[i]['fields']['date_added']);
-    tickersDict.vix[0].push(received_data[i]['fields']['vix']);
-    tickersDict.tnx[0].push(received_data[i]['fields']['tnx']);
-    tickersDict.gspc[0].push(received_data[i]['fields']['gspc']);
-    tickersDict.ixic[0].push(received_data[i]['fields']['ixic']);
-    tickersDict.rut[0].push(received_data[i]['fields']['rut']);
-    tickersDict.wti_gold[0].push(received_data[i]['fields']['wti_gold']);
-    tickersDict.cop_gold[0].push(received_data[i]['fields']['cop_gold']);
-    if (received_data[i]['fields']['vix'] > level) {
-      vix2.push(received_data[i]['fields']['vix'])
+    date.push(received_data[i]['date_added']);
+    tickersDict.vix[0].push(received_data[i]['vix']);
+    tickersDict.tnx[0].push(received_data[i]['tnx']);
+    tickersDict.gspc[0].push(received_data[i]['gspc']);
+    tickersDict.ixic[0].push(received_data[i]['ixic']);
+    tickersDict.rut[0].push(received_data[i]['rut']);
+    tickersDict.wti_gold[0].push(received_data[i]['wti_gold']);
+    tickersDict.cop_gold[0].push(received_data[i]['cop_gold']);
+    if (received_data[i]['vix'] > level) {
+      vix2.push(received_data[i]['vix'])
     } else {vix2.push(0)};
   }
   
@@ -347,10 +347,10 @@ let createAvgChart = function (offset, level, item, ticker) {
   }
   
   for (i; i < lengthRD - offset; i++) {
-    date.push(received_data[i]['fields']['date_added']);
-    data.push(received_data[i]['fields'][ticker]);
-    if (received_data[i]['fields']['vix'] > level) {
-      vix2.push(received_data[i]['fields']['vix'])
+    date.push(received_data[i]['date_added']);
+    data.push(received_data[i][ticker]);
+    if (received_data[i]['vix'] > level) {
+      vix2.push(received_data[i]['vix'])
     } else {vix2.push(0)};
   }
   
@@ -530,7 +530,7 @@ offsetInput.oninput = function() {
   if (offset < lengthRD - win - item + 1) {
     dateOffsetOutput.innerHTML = dateOffset[offset];
   } else {
-    dateOffsetOutput.innerHTML = received_data[lengthRD - 1]['fields']['date_added'];;
+    dateOffsetOutput.innerHTML = received_data[lengthRD - 1]['date_added'];;
   }
 };
 
@@ -564,11 +564,11 @@ let animationChart = function (offset, level, win, item, ticker1, ticker2) {
   }
   
   for (i; i < lengthRD - offset; i++) {
-    date.push(received_data[i]['fields']['date_added']);
-    dataAnimation1.push(received_data[i]['fields'][ticker1]);
-    dataAnimation2.push(received_data[i]['fields'][ticker2]);
-    if (received_data[i]['fields']['vix'] > level) {
-      vix2.push(received_data[i]['fields']['vix'])
+    date.push(received_data[i]['date_added']);
+    dataAnimation1.push(received_data[i][ticker1]);
+    dataAnimation2.push(received_data[i][ticker2]);
+    if (received_data[i]['vix'] > level) {
+      vix2.push(received_data[i]['vix'])
     } else {vix2.push(0)};
   }
   
