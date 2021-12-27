@@ -133,7 +133,7 @@ let lineChart = function(x, y, xLabel, yLabel, xColor, yColor, chart, win, item)
     };
     //console.log('2_' + rcor.length)
   }  
-  
+
   let radPoint = 2;
   let bordWidth = 2;
   
@@ -246,8 +246,8 @@ let createMainChart = function (offset, level, win, item) {
   
   for (i; i < lengthRD - offset; i++) {
     date.push(received_data[i]['date_added']);
-    ticker1.push(received_data[i][data1.value]);
-    ticker2.push(received_data[i][data2.value]);
+    ticker1.push(parseFloat(received_data[i][data1.value]));
+    ticker2.push(parseFloat(received_data[i][data2.value]));
     if (received_data[i]['vix'] > level) {
       vix2.push(received_data[i]['vix'])
     } else {vix2.push(0)};
@@ -274,15 +274,15 @@ let createCharts4 = function (offset, level, win, item) {
   
   for (i; i < lengthRD - offset; i++) {
     date.push(received_data[i]['date_added']);
-    tickersDict.vix[0].push(received_data[i]['vix']);
-    tickersDict.tnx[0].push(received_data[i]['tnx']);
-    tickersDict.gspc[0].push(received_data[i]['gspc']);
-    tickersDict.ixic[0].push(received_data[i]['ixic']);
-    tickersDict.rut[0].push(received_data[i]['rut']);
-    tickersDict.wti_gold[0].push(received_data[i]['wti_gold']);
-    tickersDict.cop_gold[0].push(received_data[i]['cop_gold']);
+    tickersDict.vix[0].push(parseFloat(received_data[i]['vix']));
+    tickersDict.tnx[0].push(parseFloat(received_data[i]['tnx']));
+    tickersDict.gspc[0].push(parseFloat(received_data[i]['gspc']));
+    tickersDict.ixic[0].push(parseFloat(received_data[i]['ixic']));
+    tickersDict.rut[0].push(parseFloat(received_data[i]['rut']));
+    tickersDict.wti_gold[0].push(parseFloat(received_data[i]['wti_gold']));
+    tickersDict.cop_gold[0].push(parseFloat(received_data[i]['cop_gold']));
     if (received_data[i]['vix'] > level) {
-      vix2.push(received_data[i]['vix'])
+      vix2.push(parseFloat(received_data[i]['vix']))
     } else {vix2.push(0)};
   }
   
@@ -347,13 +347,13 @@ let createAvgChart = function (offset, level, item, ticker) {
   }
   
   for (i; i < lengthRD - offset; i++) {
-    date.push(received_data[i]['date_added']);
-    data.push(received_data[i][ticker]);
-    if (received_data[i]['vix'] > level) {
-      vix2.push(received_data[i]['vix'])
+    date.push(parseFloat(received_data[i]['date_added']));
+    data.push(parseFloat(received_data[i][ticker]));
+    if (parseFloat(received_data[i]['vix']) > level) {
+      vix2.push(parseFloat(received_data[i]['vix']))
     } else {vix2.push(0)};
   }
-  
+
   let radPoint = 2;
   let bordWidth = 2;
   

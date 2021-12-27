@@ -12,13 +12,22 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     </head>
   <body class='bg-success bg-light'>
-    <div class="container">
-      <!--div>
-        {% block header %}{% endblock header %}
-      </div-->
-      <div>
-        @yield('content')
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-nav mx-1">
+        <a class="nav-link" href="{{ url('/') }}">Correlation of stock indices</a>
       </div>
+      <div class="navbar-nav mx-1">
+        <a class="nav-link" href="{{ url('currencies') }}">Currencies rating</a>
+      </div>
+      <div class="navbar-nav mx-1">
+        <a class="nav-link" href="{{ url('hh') }}">Top programming languages</a>
+      </div>
+      <div class="navbar-nav mx-1">
+        <a class="nav-link" href="{{ url('about') }}">About</a>
+      </div>
+    </nav>
+    <div class="container">
+      @yield('content')
     </div> 
   </body>
 </html>

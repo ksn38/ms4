@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>about</title>
-
-    </head>
-    <body>
-      <div>ksn38</div>
-    </body>
-</html>
+@extends('layout.app')
+@section('content')
+<div class="mt-4">
+  <a class="card-link" href="https://github.com/ksn38/">github</a>
+</div>
+<div>
+  <a class="card-link" href="https://www.youtube.com/channel/UCfRT24FZOaIhL9BCVh0PyJQ">youtube</a>
+</div>
+<div>
+  <a>ksn38@yandex.ru</a>
+</div>
+@endsection

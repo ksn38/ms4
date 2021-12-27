@@ -5,7 +5,7 @@
   <div class='flex-column justify-content-center mt-2'>
     <small class='d-flex justify-content-around mt-2 text-secondary'>Changes currencies relative to the ruble for periods:</small> 
     <span class="d-flex flex-nowrap">    
-      <form class='d-flex mx-auto' method="get">        
+      <form class='d-flex mx-auto mb-2' method="get">        
         <input class='mr-1' type="number" name="mytextbox3" size='3' min='1' max='11000' id='mytextbox3'>
         <input class='mr-1' type="number" name="mytextbox2" size='3' min='1' max='11000' id='mytextbox2'>
         <input class='mr-1' type="number" name="mytextbox1" size='3' min='1' max='11000' id='mytextbox1'>
@@ -226,4 +226,4 @@
 </script>
 
 <script src="{{asset('currencies.js')}}"></script>
-{% endblock content %}
+@endsection
