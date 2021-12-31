@@ -10,12 +10,12 @@ import json
 from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine('postgresql://ksn38:1@127.0.0.1:5432/djdb')
+engine = create_engine('postgresql://ksn38:1@db:5432/djdb')
 Base = declarative_base()
 
 
-class mybl_lang(Base):
-    __tablename__ = 'mybl_lang'
+class langs(Base):
+    __tablename__ = 'langs'
     id = Column(Integer, primary_key=True, unique=True, autoincrement=True)
     name = Column(String)
     val = Column(Integer)
@@ -65,7 +65,7 @@ def parservac():
 
 
 with engine.connect() as conn:
-    stmt = select(Column('date_added')).select_from(mybl_lang).order_by(desc('id')).limit(1)
+    stmt = select(Column('date_added')).select_from(langs).order_by(desc('id')).limit(1)
     result = conn.execute(stmt).fetchone()
     #pprint(result[0])
 
@@ -87,7 +87,7 @@ with engine.connect() as conn:
                 k = 'cpp'
             new_values = {'name': k, 'val': v, 'val_noexp': vne, 'res_vac': vrv}
             #print(new_values)
-            session.add_all([mybl_lang(k, v, vne, vrv, date.today())])
+            session.add_all([langs(k, v, vne, vrv, date.today())])
 
         session.commit()
         session.close()

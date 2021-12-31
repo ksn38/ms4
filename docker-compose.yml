@@ -21,15 +21,17 @@ services:
     container_name: ms4-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: djdb
+      POSTGRES_USER: ksn38
+      POSTGRES_PASSWORD: 1
     volumes:
       - ./docker-compose/psql:/var/lib/postgresql/data
     networks:
       - ms4-network
     ports:
       - "5432:5432"
+    depends_on:
+      - app
 
   nginx:
     image: nginx:alpine
@@ -41,6 +43,20 @@ services:
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - ms4-network
+
+  sqla:
+    build:
+      args:
+        user: ksn38
+        uid: 1000
+      context: ./docker-compose/sqlalchemy/
+    image: sqla
+    container_name: ms4-sqla
+    restart: unless-stopped
+    volumes:
+      - ./docker-compose/sqlalchemy/:/usr/src/app
     networks:
       - ms4-network
 
