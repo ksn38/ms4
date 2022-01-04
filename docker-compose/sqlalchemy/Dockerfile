@@ -13,4 +13,4 @@ WORKDIR /usr/src/app
 
 USER $user
 
-CMD [ "python", "./server.py" ]
+CMD [ "python", "./parser_langs.py" ]

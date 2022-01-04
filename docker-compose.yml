@@ -54,7 +54,9 @@ services:
       context: ./docker-compose/sqlalchemy/
     image: sqla
     container_name: ms4-sqla
-    restart: unless-stopped
+    #restart: unless-stopped
+    depends_on:
+      - db
     volumes:
       - ./docker-compose/sqlalchemy/:/usr/src/app
     networks:
