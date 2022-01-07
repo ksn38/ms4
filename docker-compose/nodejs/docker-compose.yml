@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  node:
+    image: "node:17"
+    container_name: nodeJS
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "8080:8080"
+    #stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    #command: "bash"
