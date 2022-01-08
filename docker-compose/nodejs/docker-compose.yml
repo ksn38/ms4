@@ -1,8 +1,11 @@
 version: "3.7"
 services:
   node:
-    image: "node:17"
-    container_name: nodeJS
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: "node17"
+    container_name: ms4-node
     user: "node"
     working_dir: /home/node/app
     environment:

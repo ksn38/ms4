@@ -39,3 +39,28 @@ class LangController extends Controller
         return view('hh', compact('langs', 'langs2020', 'langs2021', 'graphs', 'graphsAvg'));
     }
 }
+
+
+/*drop table if exists mean;
+create table mean (
+name varchar,
+aval int,
+aval_noexp int,
+ares_vac numeric(9, 2)
+);
+
+insert into mean
+select distinct name, avg(val) as aval, avg(val_noexp) as aval_noexp, avg(res_vac) as ares_vac from langs l 
+where date_added between '2020-11-20' and '2020-12-31' group by name;
+
+
+create table mean_march (
+name varchar,
+aval int,
+aval_noexp int,
+ares_vac numeric(9, 2)
+);
+
+insert into mean_march
+select distinct name, avg(val) as aval, avg(val_noexp) as aval_noexp, avg(res_vac) as ares_vac from langs l 
+where date_added between '2021-03-01' and '2021-04-30' group by name;*/

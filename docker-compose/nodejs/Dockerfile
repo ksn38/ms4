@@ -1,4 +1,4 @@
 FROM node:17
 
-EXPOSE 8888
+RUN npm install -g @vue/cli
 
