@@ -14,3 +14,5 @@ yarn-error.log
 /.idea
 /.vscode
 /docker-compose/psql
+/docker-compose/nodejs/node_modules
+/docker-compose/nodejs/vue_front/node_modules

@@ -44,7 +44,7 @@ def apivac(expir):
     return vac
 
 
-def parservac():
+def parservac0():
     res = {}
 
     for i in ['Python', 'C%23', 'c%2B%2B', 'Java', 'Javascript', 'php', 'Ruby', 'Golang', '1c', 'Data scientist', 'Scala', 'iOS', 'Frontend', 'DevOps', 'ABAP', 'Android']:
@@ -63,6 +63,11 @@ def parservac():
 
     return res
 
+def parservac():
+    res = {'Python': 18159, 'C%23': 12251, 'c%2B%2B': 12369, 'Java': 22994, 'Javascript': 9115, 'php': 12835, 'Ruby': 998,\
+    'Golang': 982, '1c': 130450, 'Data scientist': 6691, 'Scala': 240, 'iOS': 4471, 'Frontend': 36592, 'DevOps': 4344, 'ABAP': 848, 'Android': 6211}
+
+    return res
 
 with engine.connect() as conn:
     stmt = select(Column('date_added')).select_from(langs).order_by(desc('id')).limit(1)
