@@ -5,14 +5,14 @@ services:
       args:
         user: ksn38
         uid: 1000
-      context: ./
+      context: ./backend/laravel
       dockerfile: Dockerfile
     image: ms4
     container_name: ms4-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
-      - ./:/var/www
+      - ./backend/laravel:/var/www
     networks:
       - ms4-network
 
@@ -25,7 +25,8 @@ services:
       POSTGRES_USER: ksn38
       POSTGRES_PASSWORD: 1
     volumes:
-      - ./docker-compose/psql:/var/lib/postgresql/data
+      - ./backend/psql:/var/lib/postgresql/data
+      - ./backend/psql_dump:/home/ksn38
     networks:
       - ms4-network
     ports:
@@ -44,8 +45,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
+      - ./backend/laravel:/var/www
+      - ./backend/nginx:/etc/nginx/conf.d/
     networks:
       - ms4-network
 
@@ -54,14 +55,14 @@ services:
       args:
         user: ksn38
         uid: 1000
-      context: ./docker-compose/sqlalchemy/
+      context: ./backend/sqlalchemy/
     image: sqla
     container_name: ms4-sqla
     #restart: unless-stopped
     depends_on:
       - db
     volumes:
-      - ./docker-compose/sqlalchemy/:/usr/src/app
+      - ./backend/sqlalchemy/:/usr/src/app
     networks:
       - ms4-network
 
@@ -70,14 +71,14 @@ services:
       args:
         user: ksn38
         uid: 1000
-      context: ./docker-compose/nodejs/
+      context: ./frontend/node/
     image: "nodejs"
     container_name: ms4-node
-    working_dir: /home/node/app/vue_front
+    #working_dir: /home/node/app/vue
     environment:
       - NODE_ENV=development
     volumes:
-      - ./docker-compose/nodejs/:/home/node/app
+      - ./frontend/node/:/home/node/
     ports:
       - "8081:8080"
     #stdin_open: true # docker run -i
