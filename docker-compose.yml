@@ -74,7 +74,7 @@ services:
       context: ./frontend/node/
     image: "nodejs"
     container_name: ms4-node
-    #working_dir: /home/node/app/vue
+    working_dir: /home/node/vue
     environment:
       - NODE_ENV=development
     volumes:

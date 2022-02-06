@@ -3,10 +3,4 @@
 <div class="mt-4">
   <a class="card-link" href="https://github.com/ksn38/">github</a>
 </div>
-<div>
-  <a class="card-link" href="https://www.youtube.com/channel/UCfRT24FZOaIhL9BCVh0PyJQ">youtube</a>
-</div>
-<div>
-  <a>ksn38@yandex.ru</a>
-</div>
 @endsection
