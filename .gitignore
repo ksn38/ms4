@@ -14,3 +14,4 @@
 /backend/laravel/.vscode
 /backend/psql
 /frontend/node/vue/node_modules
+/backend/nginx/log

@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="mt-4">
+    <a class="card-link" href="https://github.com/ksn38/">github</a>
   </div>
 </template>

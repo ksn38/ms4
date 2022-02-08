@@ -15,6 +15,9 @@ services:
       - ./backend/laravel:/var/www
     networks:
       - ms4-network
+    ports:
+      - "8000:8000"
+    command: php artisan serve --host=0.0.0.0
 
   db:
     image: postgres:12
@@ -45,26 +48,27 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./backend/laravel:/var/www
-      - ./backend/nginx:/etc/nginx/conf.d/
+      # - ./backend/laravel:/var/www
+      - ./backend/nginx/conf.d:/etc/nginx/conf.d/
+      - ./backend/nginx/log:/var/log/nginx/
     networks:
       - ms4-network
 
-  sqla:
-    build:
-      args:
-        user: ksn38
-        uid: 1000
-      context: ./backend/sqlalchemy/
-    image: sqla
-    container_name: ms4-sqla
-    #restart: unless-stopped
-    depends_on:
-      - db
-    volumes:
-      - ./backend/sqlalchemy/:/usr/src/app
-    networks:
-      - ms4-network
+  # sqla:
+  #   build:
+  #     args:
+  #       user: ksn38
+  #       uid: 1000
+  #     context: ./backend/sqlalchemy/
+  #   image: sqla
+  #   container_name: ms4-sqla
+  #   #restart: unless-stopped
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./backend/sqlalchemy/:/usr/src/app
+  #   networks:
+  #     - ms4-network
 
   node:
     build:
@@ -72,7 +76,7 @@ services:
         user: ksn38
         uid: 1000
       context: ./frontend/node/
-    image: "nodejs"
+    image: "node14"
     container_name: ms4-node
     working_dir: /home/node/vue
     environment:
@@ -81,10 +85,11 @@ services:
       - ./frontend/node/:/home/node/
     ports:
       - "8081:8080"
-    #stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    #stdin_open: true
+    tty: true
     networks:
       - ms4-network
+    command: npm run serve --host=0.0.0.0
 
 networks:
   ms4-network:
