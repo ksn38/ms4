@@ -17,7 +17,7 @@ services:
       - ms4-network
     ports:
       - "8000:8000"
-    command: php artisan serve --host=0.0.0.0
+    # command: php artisan serve --host=0.0.0.0
 
   db:
     image: postgres:12
@@ -48,7 +48,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # - ./backend/laravel:/var/www
+      - ./backend/laravel:/var/www
       - ./backend/nginx/conf.d:/etc/nginx/conf.d/
       - ./backend/nginx/log:/var/log/nginx/
     networks:
