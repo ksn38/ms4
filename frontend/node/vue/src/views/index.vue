@@ -1,11 +1,6 @@
 <template>
   <div class='d-flex justify-center mt-2 flex-nowrap align-items-end' style='flex-basis: 30%'>
-    <table  class='table-sm table-bordered' v-for="(val, key) in table.data" v-bind:key='key'>
-      <tr v-for="val2, key in val"  v-bind:key='key'>
-        <td>{{key}}, {{val2}}</td>
-      </tr>
-    </table>
-    <!--table class='table-sm table-bordered'>
+    <table class='table-sm table-bordered'>
       <form>
       <caption style='caption-side: top'><small></small></caption>
         <tr>
@@ -51,51 +46,51 @@
         <th class='px-2 text-center bg-dark text-light'>Gold</th>
         <th class='px-2 text-center bg-dark text-light font-weight-normal' id='ust' v-bind:title="message">UST</th>
       </tr>
-      <tr>
+      <tr v-for="ticker, key in tickers"  v-bind:key='key'>
         <td class='change-tnx text-right' style='border-right: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_vix }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_bsesn }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_ixic }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_bvsp }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_rut }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_gspc }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_sz }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_gdaxi }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_ss }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_wheat }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_wti }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_cop }}
         </td>
         <td class='change text-right' style='border-top: 2px solid black; border-right: 2px solid black'>
-          {{ table.data[0] }}
+          {{ ticker.dif_gold }}
         </td>
         <td class='change-invert text-right'>
-          {{ table.data[0] }}
+          {{ ticker.dif_tnx }}
         </td>
       </tr>
-    </table-->
+    </table>
   </div>
 </template>
 
@@ -106,13 +101,13 @@ export default {
   name: "Index",
   data() {
     return {
-      table: null
+      tickers: null
     };
   },
   mounted() {
     axios
-      .get('http://127.0.0.1:8080/api/')
-      .then(response => (this.table = response))
+      .get('http://130.193.57.192:8080/api/')
+      .then(response => (this.tickers = response.data))
       .catch(error => console.log(error));
   }
 };

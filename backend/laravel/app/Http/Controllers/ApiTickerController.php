@@ -167,6 +167,12 @@ class ApiTickerController extends Controller
         order by id desc;');
 
         $tickers5000 = DB::select('select * from tickers mt where id > (select max(id) from tickers mt2) - 5000');
+        
+        /*$arrTickers = [];
+        foreach ($chartTickers as $chartTicker) {
+            array_push($arrTickers, (array)$chartTicker);
+        }
+        $chartTickers = array_merge_recursive(...$arrTickers);*/
 
         return $chartTickers;
     }
