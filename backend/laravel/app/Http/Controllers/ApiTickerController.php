@@ -174,7 +174,7 @@ class ApiTickerController extends Controller
         }
         $chartTickers = array_merge_recursive(...$arrTickers);*/
 
-        return $chartTickers;
+        return [$chartTickers, $tickers5000];
     }
 }
 
