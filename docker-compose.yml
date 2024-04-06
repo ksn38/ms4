@@ -1,0 +1,63 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: '${USER}'
+        uid: 1000
+      context: .
+      dockerfile: Dockerfile
+    image: laravel
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./laravel:/var/www
+      - ./php:/usr/local/etc/php
+      - ./logs/php:/var/log/php
+      - ./logs/xdebug:/var/tmp
+    networks:
+      - laravel-network
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # command: php artisan serve --host=0.0.0.0
+
+  db:
+    image: postgres:16
+    container_name: laravel-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./psql:/var/lib/postgresql/data
+    #  - ./psql_dump:/home/'${USER}'
+    networks:
+      - laravel-network
+    ports:
+      - "5432:5432"
+    depends_on:
+      - app
+
+  nginx:
+    depends_on:
+      - app
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./laravel:/var/www
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      - ./logs/nginx:/var/log/nginx/
+    networks:
+      - laravel-network
+
+networks:
+  laravel-network:
+    driver: bridge
