@@ -1,6 +1,6 @@
-docker compose --env-file ./laravel/.env up
+docker compose --env-file ./laravel/.env up  
 docker exec -it laravel-app bash  
-composer install
+composer install  
 php artisan key:generate  
 
 
