@@ -1,6 +1,7 @@
 /logs
 /psql
 /psql_dump
+/redis
 /laravel/.phpunit.cache
 /laravel/node_modules
 /laravel/public/build

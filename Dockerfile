@@ -16,8 +16,8 @@ RUN apt-get update && apt-get install -y \
     nano \
     libpq-dev \
     netcat-traditional \
-    && pecl install ds && docker-php-ext-enable ds \
-    && pecl install xdebug && docker-php-ext-enable xdebug
+    && pecl install ds redis xdebug \
+    && docker-php-ext-enable ds redis xdebug 
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*

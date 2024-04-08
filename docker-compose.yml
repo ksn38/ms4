@@ -34,13 +34,30 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./psql:/var/lib/postgresql/data
-    #  - ./psql_dump:/home/'${USER}'
+      - ./psql_dump:/tmp
     networks:
       - laravel-network
     ports:
       - "5432:5432"
     depends_on:
       - app
+
+  redis:
+      image: 'redis:alpine'
+      container_name: laravel-redis
+      ports:
+          - '${FORWARD_REDIS_PORT:-6379}:6379'
+      volumes:
+          - './redis:/data'
+      networks:
+          - laravel-network
+      healthcheck:
+          test:
+              - CMD
+              - redis-cli
+              - ping
+          retries: 3
+          timeout: 5s
 
   nginx:
     depends_on:
