@@ -1,4 +1,2 @@
 <?php
-$x = "test";
-print($x);
-print("test2!");
+print_r(get_declared_classes());
